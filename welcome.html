@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Selamat Datang — Hendrawan & Rona</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --brown:#5a3d2e;
+      --accent:#caa58b;
+      --bg-dark:#1b1b1b;
+      --bg-dim:#3b2f2f;
+      --muted:#e8dcd6;
+      --white:#ffffff;
+      --radius:14px;
+      --shadow: 0 12px 30px rgba(0,0,0,0.45);
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(180deg,var(--bg-dark) 0%, var(--bg-dim) 100%);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+    .card {
+      width:100%;
+      max-width:760px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:var(--radius);
+      padding:34px;
+      box-shadow:var(--shadow);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .top-label{ font-size:0.85rem; color:rgba(255,255,255,0.7); letter-spacing:0.8px; margin-bottom:8px; }
+    .couple { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; }
+    .groom, .amp, .bride { font-weight:600; color:var(--accent); }
+    .groom, .bride { font-size:1.6rem; letter-spacing:0.6px; }
+    .amp { color:var(--muted); font-size:1.15rem; }
+    .date { margin-top:8px; color:rgba(255,255,255,0.75); font-size:0.98rem; }
+    .subtitle { margin-top:16px; color:rgba(255,255,255,0.68); font-size:0.96rem; }
+    .input-row { margin-top:22px; display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; }
+    .input-row input[type="text"]{
+      width:calc(100% - 160px);
+      max-width:420px;
+      min-width:160px;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:rgba(255,255,255,0.03);
+      color:var(--muted);
+      outline:none;
+      font-size:1rem;
+      text-align:center;
+    }
+    .btn-enter{
+      background:var(--accent);
+      color:var(--bg-dark);
+      border:none;
+      padding:12px 18px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 8px 20px rgba(202,165,139,0.12);
+    }
+    .btn-enter:active{ transform:translateY(2px) scale(.997); }
+    .btn-enter:hover{ box-shadow: 0 12px 26px rgba(202,165,139,0.16); }
+    .note { margin-top:12px; color:rgba(255,255,255,0.6); font-size:0.88rem; }
+    .decor {
+      position:absolute;
+      right:-80px;
+      top:-40px;
+      width:260px;
+      height:260px;
+      background:radial-gradient(circle at 30% 30%, rgba(202,165,139,0.06), transparent 30%),
+                 radial-gradient(circle at 70% 70%, rgba(90,61,46,0.06), transparent 30%);
+      transform:rotate(12deg);
+      pointer-events:none;
+      filter:blur(8px);
+      opacity:0.8;
+    }
+    /* small responsive tweaks */
+    @media (max-width:680px){
+      .couple .groom, .couple .bride { font-size:1.25rem; }
+      .input-row input[type="text"]{ width:100%; max-width:100%; }
+    }
+    /* subtle entrance animations */
+    .fade-in-up { opacity:0; transform:translateY(18px); transition: all 600ms cubic-bezier(.2,.9,.2,1); }
+    .fade-in-up.visible { opacity:1; transform:none; }
+    .pop{ transform: scale(.98); transition: transform .28s ease; }
+    .pop.visible{ transform:none; }
+    /* accessible focus style */
+    input:focus { box-shadow: 0 0 0 4px rgba(202,165,139,0.08); border-color: rgba(202,165,139,0.3) }
+    button:focus { outline: 3px solid rgba(202,165,139,0.12); outline-offset: 2px; }
+    /* noscript fallback */
+    .noscript-note { background: #fff2e8; color:#3a2b24; padding:10px; border-radius:8px; margin-top:12px; display:none; }
+    noscript .noscript-note { display:block; }
+  </style>
+</head>
+<body>
+
+  <main class="card fade-in-up pop" id="welcomeCard" role="main" aria-label="Halaman selamat datang undangan">
+    <div class="top-label">Undangan Pernikahan Digital</div>
+
+    <div class="couple">
+      <div class="groom" id="groomName">Hendrawan Lotanto</div>
+      <div class="amp">&amp;</div>
+      <div class="bride" id="brideName">Rona Winarsih</div>
+    </div>
+
+    <div class="date" id="eventDate">11 Januari 2026</div>
+
+    <p class="subtitle">Dengan rahmat Allah SWT, kami mengundang Anda hadir untuk mendoakan sekaligus memberikan doa restu.</p>
+
+    <form id="guestForm" class="input-row" aria-label="Form input nama tamu">
+      <input id="guestName" name="guestName" type="text" placeholder="Masukkan nama Anda (mis. Budi Santoso)" autocomplete="off" maxlength="60" required />
+      <button type="submit" class="btn-enter" aria-label="Buka Undangan">💌 Buka Undangan</button>
+    </form>
+
+    <p class="note">Nama akan tersimpan untuk menampilkan salam personal di halaman undangan.</p>
+
+    <div class="decor" aria-hidden="true"></div>
+
+    <noscript>
+      <div class="noscript-note">JavaScript diperlukan agar undangan tampil personal. Mohon aktifkan JavaScript.</div>
+    </noscript>
+  </main>
+
+  <script>
+    (function(){
+      // Ambil elemen-elemen DOM
+      const groomEl = document.getElementById('groomName');
+      const brideEl = document.getElementById('brideName');
+      const dateEl = document.getElementById('eventDate');
+      const cardEl = document.getElementById('welcomeCard');
+      const formEl = document.getElementById('guestForm');
+      const inputEl = document.getElementById('guestName');
+      const buttonEl = document.querySelector('.btn-enter');
+
+      // 1. Ambil config
+      const W = window.__WEDDING || {
+        groom: "Hendrawan Lotanto",
+        bride: "Rona Winarsih",
+        dateISO: "2026-01-11T09:00:00"
+      };
+
+      // 2. Populate nama & tanggal
+      if (groomEl) groomEl.textContent = W.groom || "Hendrawan Lotanto";
+      if (brideEl) brideEl.textContent = W.bride || "Rona Winarsih";
+      if (dateEl) {
+        try {
+          const d = new Date(W.dateISO);
+          if (!isNaN(d)) {
+            const opt = { year:'numeric', month:'long', day:'numeric' };
+            dateEl.textContent = d.toLocaleDateString('id-ID', opt);
+          }
+        } catch(e){ console.error('Error parsing date:', e); }
+      }
+
+      // 3. Animasi masuk
+      if (cardEl) {
+        window.requestAnimationFrame(()=> {
+          setTimeout(()=> {
+            cardEl.classList.add('visible');
+          }, 120);
+        });
+      }
+
+      // 4. Auto-focus ke input
+      if (inputEl) {
+        setTimeout(()=> {
+          inputEl.focus();
+        }, 650);
+      }
+      
+      // 5. Definisikan fungsi submit
+      function handleFormSubmit(e){
+        e.preventDefault();
+        if (!inputEl) return;
+
+        const name = inputEl.value.trim();
+        if (!name) {
+          alert('Mohon masukkan nama Anda.');
+          inputEl.focus();
+          return;
+        }
+
+        // PERBAIKAN: Implementasi fallback query parameter
+        let redirectUrl = 'index.html';
+        try {
+          localStorage.setItem('namaTamu', name);
+        } catch(err){
+          console.warn('localStorage gagal, gunakan fallback query parameter.');
+          // Buat URL dengan query parameter sebagai fallback
+          redirectUrl = `index.html?guest=${encodeURIComponent(name)}`;
+        }
+
+        // Animasi keluar
+        if (cardEl) {
+          cardEl.style.transition = 'transform .35s ease, opacity .35s ease';
+          cardEl.style.transform = 'scale(.98)';
+          cardEl.style.opacity = '0';
+        }
+
+        // Alihkan ke halaman utama
+        setTimeout(()=> {
+          window.location.href = redirectUrl;
+        }, 330);
+      }
+
+      // 6. Pasang event listener
+      if (formEl) {
+        formEl.addEventListener('submit', handleFormSubmit);
+      }
+      
+      // 7. Pasang event listener untuk 'Enter' key
+      if (inputEl && buttonEl) {
+        inputEl.addEventListener('keydown', function(e){
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            // Simulasikan klik pada tombol submit
+            buttonEl.click(); 
+          }
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>

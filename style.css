@@ -1,0 +1,698 @@
+/* ============================================
+   style.css — Undangan Pernikahan (coklat/hitam/putih)
+   Responsive, MOBILE-FIRST, elegant animations.
+   ============================================ */
+
+/* ---------- :root / palette ---------- */
+:root{
+  --brown: #5a3d2e;
+  --accent: #caa58b;
+  --bg: #fffaf7;
+  --muted: #6b5a50;
+  --black: #111111;
+  --white: #ffffff;
+  --card: #fffdfb;
+  --radius: 14px;
+  --gap: 18px;
+  --max-width: 1100px;
+  --shadow-sm: 0 6px 18px rgba(16,12,10,0.06);
+  --shadow-md: 0 12px 30px rgba(16,12,10,0.09);
+}
+
+/* ---------- Reset & base ---------- */
+*{box-sizing:border-box}
+
+html{
+  /* PERUBAHAN: Menambahkan smooth scrolling untuk anchor links */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  /* PERUBAHAN: Ganti background solid menjadi background-color */
+  background-color: var(--bg);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+
+  /* === TAMBAHAN BARU: Pola Islami/Geometris (Wajik/Argyle) === */
+  /* Ini menggunakan 4 gradien linear untuk membuat pola wajik (diamond).
+    Dibuat sangat transparan (0.07 opacity) dengan warna --accent.
+  */
+  background-image: 
+    linear-gradient(135deg, rgba(202,165,139, 0.07) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(202,165,139, 0.07) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(202,165,139, 0.07) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(202,165,139, 0.07) 25%, var(--bg) 25%);
+  background-size: 30px 30px; /* Ukuran pola */
+  background-position: 7px 0, 7px 0, 0 0, 0 0;
+  /* ========================================================== */
+}
+
+/* PERUBAHAN: Menambahkan reset dasar untuk gambar dan iframe */
+img, iframe, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Container helpers */
+.container{width:94%;max-width:var(--max-width);margin:0 auto}
+.container.centered{text-align:center}
+.container.narrow{max-width:760px;margin:0 auto;text-align:center}
+
+/* ---------- Buttons ---------- */
+a,button{
+  font-family:inherit;
+  font-weight:600;
+  /* PERUBAHAN: Menambahkan transisi untuk hover/focus yang mulus */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* PERUBAHAN: Menambahkan state focus-visible untuk aksesibilitas keyboard */
+.btn-primary:focus-visible,
+.btn-ghost:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary{
+  background:var(--brown);
+  color:var(--white);
+  padding:10px 18px;
+  border-radius:10px;
+  border:0;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  box-shadow:var(--shadow-sm);
+}
+.btn-primary:hover{ 
+  transform:translateY(-3px) scale(1.01);
+  box-shadow: var(--shadow-md); /* PERUBAHAN: Efek hover yang lebih baik */
+}
+.btn-ghost{
+  background:transparent;
+  color:var(--brown);
+  padding:9px 14px;
+  border-radius:10px;
+  border:1px solid rgba(90,61,46,0.12);
+  text-decoration:none;
+  display:inline-block;
+}
+.btn-ghost:hover {
+  background: rgba(90,61,46,0.04);
+  border-color: rgba(90,61,46,0.2);
+}
+
+.small-label{font-size:0.86rem;color:var(--muted);letter-spacing:.6px}
+
+/* ---------- Hero ---------- */
+.section-hero{
+  min-height:70vh; /* Sedikit disesuaikan */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:48px 0; /* Padding lebih banyak di mobile */
+  overflow:hidden;
+}
+.hero-inner{
+  display:flex;
+  gap:24px; /* Disesuaikan */
+  align-items:center;
+  justify-content:center; /* Default center untuk mobile */
+  width:100%;
+  max-width:var(--max-width);
+  padding:18px;
+  /* PERUBAHAN: Mobile-first (default: column) */
+  flex-direction:column;
+  text-align:center;
+}
+.hero-text{
+  flex:1;
+  /* PERUBAHAN: Text align di-handle oleh .hero-inner */
+}
+.hero-photo{
+  /* PERUBAHAN: Default hidden di mobile */
+  display:none; 
+  width:240px;
+  height:240px;
+  border-radius:18px;
+  background: linear-gradient(180deg,rgba(202,165,139,0.08),rgba(90,61,46,0.04));
+  box-shadow:var(--shadow-md);
+  flex-shrink:0
+}
+.names{
+  font-size: 2rem; /* Disesuaikan untuk mobile */
+  color:var(--brown);
+  line-height:1.1;
+  margin:6px 0
+}
+.date{color:var(--muted);font-weight:600}
+.cta-note{margin-top:12px;color:var(--muted)}
+
+/* ---------- Greeting ---------- */
+.greeting-text{font-size:1rem;color:var(--muted);margin-bottom:6px}
+.lead{font-weight:500;color:var(--muted)}
+
+/* ---------- Countdown ---------- */
+.section-title{font-size:1.15rem;color:var(--brown);font-weight:700;margin-bottom:6px}
+.timer{
+  font-size:1.05rem;
+  color:var(--brown);
+  margin-top:6px;
+  font-weight:700;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap
+}
+.count-item{
+  background:var(--card);
+  padding:12px 14px;
+  border-radius:10px;
+  box-shadow:var(--shadow-sm);
+  min-width:80px
+}
+.count-item span{display:block;font-size:1.05rem;color:var(--brown);font-weight:800}
+.count-item p{margin:0;font-size:0.82rem;color:var(--muted)}
+
+/* ---------- About ---------- */
+/* PERUBAHAN: Selector diubah dari .quote menjadi blockquote */
+#about blockquote{
+  font-style:italic;
+  background:#f3ede7;
+  border-left:4px solid var(--accent);
+  padding:14px;
+  border-radius:10px;
+  margin:18px 0;
+  color:#3a2b24;
+  text-align: left; /* Pastikan text-align left di dalam container narrow */
+}
+#about blockquote footer {
+  font-style: normal; /* Sumber kutipan tidak miring */
+  margin-top: 8px;
+}
+#about p{
+  color:#3a2b24;
+  text-align: justify; /* Lebih rapi untuk paragraf panjang */
+}
+/* PERUBAHAN: Tambahan dari inline style index.html */
+#about blockquote + p {
+  margin-top: 12px;
+}
+
+/* ==================================
+   GANTI BAGIAN GALLERY LAMA ANDA DENGAN INI
+   ================================== */
+
+/* ---------- Gallery (Overlapping Layout) ---------- */
+#gallery {
+  background: var(--card);
+  padding-top: 40px;
+  padding-bottom: 60px; /* Lebih banyak ruang di bawah */
+  border-radius: 12px;
+  /* PERUBAHAN: Menambahkan overflow hidden untuk estetika */
+  overflow: hidden; 
+}
+
+.gallery-item {
+  /* PERUBAHAN: position: relative diperlukan untuk layout tumpang tindih */
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* PERUBAHAN: margin lebih besar di ponsel untuk menampung kartu */
+  margin-bottom: 60px; 
+}
+
+.gallery-item img {
+  width: 95%; /* Gambar sedikit lebih lebar di ponsel */
+  height: 250px; /* Ketinggian konsisten di ponsel */
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  /* PERUBAHAN: Transisi dipindah ke blok animasi di bawah */
+}
+
+.gallery-item .desc {
+  /* PERUBAHAN: Ini adalah layout "kartu gantung" di ponsel */
+  position: absolute;
+  bottom: -40px; /* Menggantung 40px di bawah */
+  width: 85%;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+  text-align: center;
+  min-width: 0; /* Reset min-width untuk ponsel */
+}
+.gallery-item .desc h3 {
+  margin-top: 0;
+  margin-bottom: 4px;
+  color: var(--brown);
+}
+.gallery-item .desc p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------- Media Query: Desktop (Layout Overlapping) ---------- */
+@media (min-width: 768px) {
+  #gallery {
+    padding-bottom: 40px; /* Kembalikan padding desktop */
+  }
+
+  .gallery-item {
+    /* PERUBAHAN: Kembali ke flex-row untuk desktop */
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 34px; /* Margin normal di desktop */
+  }
+
+  .gallery-item img {
+    /* PERUBAHAN: Gambar mengambil 55% lebar */
+    width: 55%; 
+    max-width: 450px; /* Batas maksimum baru */
+    height: 300px;
+    z-index: 1;
+  }
+
+  .gallery-item .desc {
+    /* PERUBAHAN: Kartu deskripsi di-reset dari 'absolute' */
+    position: relative;
+    width: 45%;
+    max-width: 400px;
+    padding: 24px 30px;
+    z-index: 2;
+    text-align: left;
+    bottom: auto; /* Reset posisi 'bottom' */
+  }
+  
+  /* PERUBAHAN: Logika tumpang tindih */
+  .gallery-item.left .desc {
+    margin-left: -80px; /* Tarik kartu ke kiri agar tumpang tindih */
+  }
+
+  .gallery-item.right {
+    flex-direction: row-reverse; /* Balikkan urutan untuk zig-zag */
+  }
+  
+  .gallery-item.right .desc {
+    margin-right: -80px; /* Tarik kartu ke kanan agar tumpang tindih */
+  }
+}
+/* ==================================
+   AKHIR DARI BLOK PENGGANTI GALLERY
+   ================================== */
+
+/* ==================================
+   TAMBAHKAN INI KE style.css
+   ================================== */
+
+/* ---------- Animasi Staggered untuk Galeri ---------- */
+
+/* 1. Sembunyikan elemen anak (img dan desc) secara default */
+.gallery-item.animate img {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.6s cubic-bezier(.2, .9, .2, 1);
+}
+
+.gallery-item.animate .desc {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(.2, .9, .2, 1);
+}
+
+/* 2. Saat .animate mendapat kelas .show (dari JS), animasikan anak-anak */
+.gallery-item.animate.show img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.gallery-item.animate.show .desc {
+  opacity: 1;
+  transform: translateY(0);
+  /* PERUBAHAN: Ini adalah kuncinya. Tunda animasi deskripsi
+     sebesar 0.15 detik untuk efek "staggered" (bertahap) */
+  transition-delay: 0.15s;
+}
+
+/* 3. Kita juga perlu transisi untuk hover pada gambar */
+.gallery-item img {
+    /* (Kita pindahkan ini dari atas) */
+    transition: transform .45s cubic-bezier(.2,.9,.2,1);
+}
+.gallery-item img:hover { 
+    transform: scale(1.03); 
+}
+/* ==================================
+   AKHIR BLOK CSS ANIMASI BARU
+   ================================== */
+
+/* ---------- Maps ---------- */
+/* PERUBAHAN: Tambahan dari inline style index.html */
+.map-wrap {
+  margin-top: 12px;
+}
+.map-wrap iframe{
+  width:100%;
+  height:320px;
+  border-radius:12px;
+  box-shadow:var(--shadow-sm);
+  border:0
+}
+/* PERUBAHAN: Tambahan dari inline style index.html */
+.map-wrap + div {
+  margin-top: 12px;
+}
+
+/* ---------- Donation ---------- */
+.donation-card{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  /* PERUBAHAN: Tambahan dari inline style index.html */
+  margin-top:18px; 
+}
+.donation-info{text-align:center}
+.qr-img{
+  /* PERUBAHAN: Tambahan dari inline style index.html */
+  display: block; 
+  width:160px;
+  height:160px;
+  border-radius:12px;
+  box-shadow:var(--shadow-md);
+  object-fit:cover
+}
+
+/* toggle hidden */
+.hidden{display:none}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.78);
+  z-index:1200;
+  padding:20px
+}
+.lightbox[aria-hidden="false"]{display:flex}
+.lb-close{
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:30px;
+  color:var(--white);
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  line-height: 1;
+}
+#lb-img{max-width:95%;max-height:90%;border-radius:10px;box-shadow:var(--shadow-md)}
+
+/* ---------- Music fallback button ---------- */
+.music-fallback{
+  /* PERUBAHAN: Sembunyikan by default, script.js akan menampilkannya */
+  display: none;
+  position:fixed;
+  left:12px;
+  bottom:12px;
+  background:var(--brown);
+  color:var(--white);
+  padding:10px 12px;
+  border-radius:10px;
+  border:none;
+  z-index:1300;
+  box-shadow:var(--shadow-md);
+}
+
+/* ---------- Footer ---------- */
+.site-footer{
+  padding:28px 0;
+  background:transparent;
+  color:var(--muted);
+  margin-top:18px
+}
+
+/* ---------- Animations (AOS) ---------- */
+/* PERUBAHAN: Menghapus style .animate & .animate.show 
+   karena kita menggunakan AOS (sesuai index.html) 
+*/
+[data-aos]{
+  /* Petunjuk performa untuk browser */
+  will-change:transform,opacity;
+}
+
+/* ---------- Media Query: Desktop (Mobile-First) ---------- */
+/* PERUBAHAN: Menggunakan min-width. Gaya ini hanya berlaku
+   jika layar LEBIH BESAR dari 768px.
+*/
+@media (min-width: 768px){
+  /* HERO */
+  .hero-inner{
+    flex-direction:row;
+    justify-content:space-between;
+    text-align:left;
+  }
+  .hero-text{ text-align:left; }
+  .hero-photo{ display:block; } /* Tampilkan foto di desktop */
+  .names { font-size: 2.4rem; } /* Kembalikan ukuran font desktop */
+  
+  /* ABOUT */
+  #about p {
+    text-align: center; /* Kembalikan ke center di desktop (sesuai layout .narrow) */
+  }
+
+  /* GALLERY */
+  .gallery-item{
+    flex-direction:row; /* Default: foto kiri, teks kanan */
+    text-align: left;
+  }
+  .gallery-item img{
+    height:280px;
+    max-width:420px;
+  }
+  .gallery-item .desc {
+    text-align: left;
+  }
+  .gallery-item.right{
+    flex-direction:row-reverse; /* Teks kiri, foto kanan */
+  }
+}
+
+/* Small utilities */
+.text-muted{color:var(--muted)}
+.center{text-align:center}
+.small{font-size:0.85rem;color:var(--muted)}
+/* end of file */
+
+/* di style.css (tambahkan di paling bawah) */
+
+/* ================================
+   STYLING FITUR BARU: DETAIL ACARA
+   ================================ */
+.event-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.event-card {
+  background: var(--card);
+  border: 1px solid rgba(90, 61, 46, 0.08);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.event-icon {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--brown);
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin: 0 auto 12px;
+}
+
+.event-card h3 {
+  color: var(--brown);
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.event-card p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.event-venue {
+  font-weight: 600;
+  color: var(--black);
+}
+.btn-ghost.small {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+/* Buat 2 kolom di desktop */
+@media (min-width: 768px) {
+  .event-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch; /* Bikin kartu sama tinggi */
+  }
+  .event-card {
+    flex: 1; /* Setiap kartu ambil 50% */
+  }
+}
+
+/* ================================
+   STYLING FITUR BARU: BUKU TAMU
+   ================================ */
+.guestbook-form {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+  margin-top: 20px;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--brown);
+  margin-bottom: 6px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(90, 61, 46, 0.15);
+  background: var(--bg);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: var(--black);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(202, 165, 139, 0.2);
+}
+.guestbook-form button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.05rem;
+}
+
+/* Daftar Komentar */
+.comments-list {
+  margin-top: 36px;
+  text-align: left;
+}
+.comments-title {
+  color: var(--brown);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 8px;
+}
+.comment-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+  border: 1px solid rgba(90, 61, 46, 0.05);
+}
+.comment-name {
+  color: var(--black);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.comment-body {
+  color: var(--muted);
+  margin: 6px 0;
+  font-style: italic;
+}
+.comment-date {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ================================
+   ANIMASI BARU: HERO & TOMBOL
+   ================================ */
+
+/* Keyframes untuk animasi "Fade In + Slide Up" */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Terapkan ke setiap elemen di hero text */
+.hero-text > * {
+  opacity: 0; /* Mulai dari transparan */
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Beri jeda (staggered delay) agar muncul satu per satu */
+.hero-text .small-label { animation-delay: 0.2s; }
+.hero-text .names { animation-delay: 0.4s; }
+.hero-text .date { animation-delay: 0.6s; }
+.hero-text .cta-note { animation-delay: 0.8s; }
+.hero-text .hero-actions { animation-delay: 1.0s; }
+
+/* Keyframes untuk angka countdown "Pop" */
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  70% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+/* Kita akan terapkan kelas .pop-in ini via JavaScript */
+.count-item.pop-in {
+  animation: popIn 0.4s ease-out;
+}
+
+/* Animasi Tombol lebih "rame" */
+.btn-primary:hover { 
+  transform: translateY(-4px) scale(1.02); /* Lebih 'pop' */
+  box-shadow: 0 14px 28px rgba(16,12,10,0.12); /* Bayangan lebih besar */
+}
+.btn-ghost:hover {
+  background: rgba(90, 61, 46, 0.06);
+  border-color: var(--brown); /* Border lebih tegas */
+  transform: translateY(-2px);
+}
