@@ -3,373 +3,242 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Undangan Pernikahan — Hendrawan & Rona</title>
+  <title>Selamat Datang — Hendrawan & Rona</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
 
-  <meta name="theme-color" content="#5a3d2e" />
+  <style>
+    :root{
+      --brown:#5a3d2e;
+      --accent:#caa58b;
+      --bg-dark:#1b1b1b;
+      --bg-dim:#3b2f2f;
+      --muted:#e8dcd6;
+      --white:#ffffff;
+      --radius:14px;
+      --shadow: 0 12px 30px rgba(0,0,0,0.45);
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(180deg,var(--bg-dark) 0%, var(--bg-dim) 100%);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+    .card {
+      width:100%;
+      max-width:760px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:var(--radius);
+      padding:34px;
+      box-shadow:var(--shadow);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .top-label{ font-size:0.85rem; color:rgba(255,255,255,0.7); letter-spacing:0.8px; margin-bottom:8px; }
+    .couple { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; }
+    .groom, .amp, .bride { font-weight:600; color:var(--accent); }
+    .groom, .bride { font-size:1.6rem; letter-spacing:0.6px; }
+    .amp { color:var(--muted); font-size:1.15rem; }
+    .date { margin-top:8px; color:rgba(255,255,255,0.75); font-size:0.98rem; }
+    .subtitle { margin-top:16px; color:rgba(255,255,255,0.68); font-size:0.96rem; }
+    .input-row { margin-top:22px; display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; }
+    .input-row input[type="text"]{
+      width:calc(100% - 160px);
+      max-width:420px;
+      min-width:160px;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:rgba(255,255,255,0.03);
+      color:var(--muted);
+      outline:none;
+      font-size:1rem;
+      text-align:center;
+    }
+    .btn-enter{
+      background:var(--accent);
+      color:var(--bg-dark);
+      border:none;
+      padding:12px 18px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 8px 20px rgba(202,165,139,0.12);
+    }
+    .btn-enter:active{ transform:translateY(2px) scale(.997); }
+    .btn-enter:hover{ box-shadow: 0 12px 26px rgba(202,165,139,0.16); }
+    .note { margin-top:12px; color:rgba(255,255,255,0.6); font-size:0.88rem; }
+    .decor {
+      position:absolute;
+      right:-80px;
+      top:-40px;
+      width:260px;
+      height:260px;
+      background:radial-gradient(circle at 30% 30%, rgba(202,165,139,0.06), transparent 30%),
+                 radial-gradient(circle at 70% 70%, rgba(90,61,46,0.06), transparent 30%);
+      transform:rotate(12deg);
+      pointer-events:none;
+      filter:blur(8px);
+      opacity:0.8;
+    }
+    /* small responsive tweaks */
+    @media (max-width:680px){
+      .couple .groom, .couple .bride { font-size:1.25rem; }
+      .input-row input[type="text"]{ width:100%; max-width:100%; }
+    }
+    /* subtle entrance animations */
+    .fade-in-up { opacity:0; transform:translateY(18px); transition: all 600ms cubic-bezier(.2,.9,.2,1); }
+    .fade-in-up.visible { opacity:1; transform:none; }
+    .pop{ transform: scale(.98); transition: transform .28s ease; }
+    .pop.visible{ transform:none; }
+    /* accessible focus style */
+    input:focus { box-shadow: 0 0 0 4px rgba(202,165,139,0.08); border-color: rgba(202,165,139,0.3) }
+    button:focus { outline: 3px solid rgba(202,165,139,0.12); outline-offset: 2px; }
+    /* noscript fallback */
+    .noscript-note { background: #fff2e8; color:#3a2b24; padding:10px; border-radius:8px; margin-top:12px; display:none; }
+    noscript .noscript-note { display:block; }
+  </style>
 </head>
 <body>
 
-  <script>
-    window.__WEDDING = {
-      groom: "Hendrawan Lotanto",
-      bride: "Rona Winarsih",
-      dateISO: "2026-01-11T08:00:00", // waktu acara (ubah jam jika perlu)
-      venueName: "Masjid Raya Sheikh Zayed Solo Surakarta",
-      venueCoords: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.185965609997!2d110.82419937506135!3d-7.554691392459049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a17dac308ebbf%3A0xa8c652329428591d!2sMasjid%20Raya%20Sheikh%20Zayed%20Solo%20Surakarta!5e0!3m2!1sid!2sid!4v1762839487639!5m2!1sid!2sid", // lat,lng OR full Google Maps URL
-      bank: {
-        name: "BCA",
-        account: "1234567890",
-        an: "Hendrawan Lotanto",
-        qr: "assets/images/qr.png"
-      }
-    };
-  </script>
+  <main class="card fade-in-up pop" id="welcomeCard" role="main" aria-label="Halaman selamat datang undangan">
+    <div class="top-label">Undangan Pernikahan Digital</div>
 
-  <header id="hero" class="section-hero" data-aos="fade-up">
-    <div class="hero-inner container">
-      <div class="hero-text">
-        <p class="small-label">Dengan memohon rahmat dan ridha Allah SWT</p>
-        <h1 id="hero-names" class="names">Hendrawan Lotanto & Rona Winarsih</h1>
-        <p id="hero-date" class="date">11 Januari 2026</p>
-        <p class="cta-note">Kami mengundang Anda untuk hadir dan mendoakan kebahagiaan kami.</p>
-
-        <div class="hero-actions">
-          <a class="btn-primary" href="#countdown">Hitung Mundur</a>
-          <a class="btn-ghost" href="#gallery">Galeri</a>
-          <a class="btn-ghost" href="#donate">Amplop Digital</a>
-        </div>
-      </div>
-
-      <div class="hero-photo" aria-hidden="true"></div>
+    <div class="couple">
+      <div class="groom" id="groomName">Hendrawan Lotanto</div>
+      <div class="amp">&amp;</div>
+      <div class="bride" id="brideName">Rona Winarsih</div>
     </div>
-  </header>
 
-  <section id="greeting" class="section" data-aos="fade-up">
-    <div class="container narrow centered">
-      <p id="greeting-text" class="greeting-text">Halo, selamat datang — masukkan nama dulu di halaman awal.</p>
-      <p class="lead">Dengan penuh syukur kami menanti doa dan kehadiran Anda.</p>
-    </div>
-  </section>
+    <div class="date" id="eventDate">11 Januari 2026</div>
 
-  <section id="countdown" class="section" data-aos="fade-up">
-    <div class="container centered">
-      <h2 class="section-title">Hitung Mundur Menuju Hari Bahagia</h2>
-      <div id="countdown-display" class="timer" aria-live="polite">-- hari -- jam -- menit -- detik</div>
-    </div>
-  </section>
+    <p class="subtitle">Dengan rahmat Allah SWT, kami mengundang Anda hadir untuk mendoakan sekaligus memberikan doa restu.</p>
 
-  <section id="about" class="section" data-aos="fade-up">
-    <div class="container narrow">
-      <h2 class="section-title">Tentang Kami & Konsep Pernikahan</h2>
-      <p>
-        Assalamu’alaikum Warahmatullahi Wabarakatuh. Kami, <strong>Hendrawan Lotanto</strong> dan <strong>Rona Winarsih</strong>,
-        mengundang Bapak/Ibu/Saudara/i untuk hadir dalam rangka penyatuan kami dalam ikatan pernikahan yang kami jalankan dengan konsep <strong>islami</strong> —
-        sederhana namun penuh keberkahan, mengutamakan doa, silaturahmi keluarga, dan niat yang tulus.
-      </p>
+    <form id="guestForm" class="input-row" aria-label="Form input nama tamu">
+      <input id="guestName" name="guestName" type="text" placeholder="Masukkan nama Anda (mis. Budi Santoso)" autocomplete="off" maxlength="60" required />
+      <button type="submit" class="btn-enter" aria-label="Buka Undangan">💌 Buka Undangan</button>
+    </form>
 
-      <blockquote class="quote">
-        <p><em>“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri,
-        supaya kamu merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.”</em></p>
-        <footer><p class="muted"><strong>QS. Ar-Rum: 21</strong></p></footer>
-      </blockquote>
+    <p class="note">Nama akan tersimpan untuk menampilkan salam personal di halaman undangan.</p>
 
-      <p>
-        Kami berharap pernikahan ini menjadi awal untuk membangun keluarga yang sakinah, mawaddah, wa rahmah. Mohon doa dan restu.
-        <br>
-        <em>Hadits:</em> “Nikah itu sunnahku, siapa yang tidak menyukai sunnahku, bukan golonganku.” (ringkasan hadits)
-      </p>
-    </div>
-  </section>
+    <div class="decor" aria-hidden="true"></div>
 
-  <section id="gallery" class="section" data-aos="fade-up">
-    <div class="container">
-      <h2 class="section-title">Galeri Kenangan</h2>
-      <p class="muted">Klik foto untuk memperbesar. Deskripsi bergantian kiri-kanan (zig-zag).</p>
-
-      <article class="gallery-item left animate">
-        <img src="assets/images/gallery1.jpeg" alt="Awal Pertemuan">
-        <div class="desc">
-          <h3>Awal Pertemuan</h3>
-          <p>Pertemuan sederhana yang menumbuhkan harapan — awal dari cerita kita.</p>
-        </div>
-      </article>
-
-      <article class="gallery-item right animate">
-        <div class="desc">
-          <h3>Perjalanan Bersama</h3>
-          <p>Langkah-langkah kecil yang kita jalani bersama, saling menguatkan dan berbagi doa.</p>
-        </div>
-        <img src="assets/images/gallery2.jpeg" alt="Perjalanan Bersama">
-      </article>
-
-      <article class="gallery-item left animate">
-        <img src="assets/images/gallery3.jpeg" alt="Momen Lamaran">
-        <div class="desc">
-          <h3>Lamaran</h3>
-          <p>Momen hangat saat keluarga berkumpul, restu dipinta, dan harapan disematkan.</p>
-        </div>
-      </article>
-
-      <article class="gallery-item right animate">
-        <div class="desc">
-          <h3>Senja Bersama</h3>
-          <p>Waktu sederhana yang tak terlupakan, menjadi warna dalam hari-hari kita.</p>
-        </div>
-        <img src="assets/images/gallery4.jpeg" alt="Senja Bersama">
-      </article>
-
-      <article class="gallery-item left animate">
-        <img src="assets/images/gallery5.jpeg" alt="Doa Keluarga">
-        <div class="desc">
-          <h3>Doa Keluarga</h3>
-          <p>Doa adalah hadiah terbaik — semoga kami selalu dalam lindungan-Nya.</p>
-        </div>
-      </article>
-
-      <article class="gallery-item right animate">
-        <div class="desc">
-          <h3>Menuju Hari Bahagia</h3>
-          <p>Kami bersiap menyambut hari spesial dengan hati yang penuh syukur.</p>
-        </div>
-        <img src="assets/images/gallery6.jpeg" alt="Menuju Hari Bahagia">
-      </article>
-
-    </div>
-  </section>
-
-  <section id="events" class="section" data-aos="fade-up">
-    <div class="container narrow centered">
-      <h2 class="section-title">Detail Acara</h2>
-      <p class="lead">Kami mengharapkan kehadiran Anda di kedua prosesi suci kami.</p>
-
-      <div class="event-wrapper">
-        <div class="event-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="event-icon">A</div>
-          <h3>Akad Nikah</h3>
-          <p>
-            <strong>Minggu, 11 Januari 2026</strong><br>
-            Pukul 09:00 WIB - Selesai
-          </p>
-          <p class="event-venue" id="venueNameAkad">
-            Masjid Istiqlal, Jakarta Pusat
-          </p>
-          <a href="#" class="btn-ghost small" id="open-maps-akad" target="_blank" rel="noopener">Lihat Peta Akad</a>
-        </div>
-
-        <div class="event-card" data-aos="fade-up" data-aos-delay="250">
-          <div class="event-icon">R</div>
-          <h3>Resepsi</h3>
-          <p>
-            <strong>Minggu, 11 Januari 2026</strong><br>
-            Pukul 12:00 WIB - 15:00 WIB
-          </p>
-          <p class="event-venue" id="venueNameResepsi">
-            Gedung Serbaguna Melati
-          </p>
-          <a href="#" class="btn-ghost small" id="open-maps-resepsi" target="_blank" rel="noopener">Lihat Peta Resepsi</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-<section id="guestbook" class="section" data-aos="fade-up">
-    <div class="container narrow">
-      <h2 class="section-title">Buku Tamu & Ucapan Doa</h2>
-      <p class="muted">Kirimkan doa dan ucapan terbaik Anda untuk kami.</p>
-
-      <form id="guestbook-form" class="guestbook-form" data-aos="fade-up">
-        <div class="form-group">
-          <label for="guestName">Nama Anda</label>
-          <input type="text" id="guestName" name="guestName" required placeholder="Tulis nama Anda...">
-        </div>
-        <div class="form-group">
-          <label for="guestMessage">Ucapan Anda</label>
-          <textarea id="guestMessage" name="guestMessage" rows="4" required placeholder="Tulis doa dan ucapan..."></textarea>
-        </div>
-        <button type="submit" class="btn-primary">Kirim Ucapan</button>
-      </form>
-
-      <div class="comments-list" data-aos="fade-up" data-aos-delay="150">
-        <h3 class="comments-title">Ucapan Terdahulu</h3>
-        
-        <div class="comment-item">
-          <strong class="comment-name">Budi & Keluarga</strong>
-          <p class="comment-body">
-            MasyaAllah, selamat ya Hendrawan & Rona! Semoga menjadi keluarga yang sakinah, mawaddah, wa rahmah. Lancar sampai hari H!
-          </p>
-          <span class="comment-date">2 hari yang lalu</span>
-        </div>
-        
-        <div class="comment-item">
-          <strong class="comment-name">Rekan Kerja</strong>
-          <p class="comment-body">
-            Selamat, Bos! Akhirnya pecah telur juga. Semoga samawa!
-          </p>
-          <span class="comment-date">1 hari yang lalu</span>
-        </div>
-        
-        </div>
-    </div>
-  </section>
-
-  <section id="maps" class="section" data-aos="fade-up">
-    <div class="container narrow">
-      <h2 class="section-title">Lokasi Acara</h2>
-      <p class="muted" id="venueName">Gedung Serbaguna Melati</p>
-
-      <div class="map-wrap">
-        <iframe id="gmaps" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-
-      <div>
-        <a id="open-maps" class="btn-ghost" target="_blank" rel="noopener">Buka di Google Maps</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="donate" class="section" data-aos="fade-up">
-    <div class="container centered">
-      <h2 class="section-title">Amplop Digital</h2>
-      <p class="muted">Bagi yang ingin memberi doa dalam bentuk amplop digital — terima kasih atas kebaikannya.</p>
-
-      <div class="donation-card">
-        <div class="donation-info">
-          <p class="bank-name" id="bankName">BCA</p>
-          <p class="account"><strong id="bankAccount">1234567890</strong><br> a.n <strong id="bankAn">Hendrawan Lotanto</strong></p>
-          
-          <div>
-            <button class="btn-primary" id="btn-copy-rek">Salin Nomor</button>
-            <button class="btn-ghost" id="toggle-qr">Tampilkan QR</button>
-          </div>
-        </div>
-
-        <div>
-          <img id="bank-qr" class="qr-img" src="assets/images/qr.png" alt="QR Payment">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="site-footer" data-aos="fade-up">
-    <div class="container centered">
-      <p>Terima kasih atas doa & restu. Sampai jumpa di hari bahagia kami 💖</p>
-      <p class="muted small">Hendrawan Lotanto & Rona Winarsih — 2026</p>
-    </div>
-  </footer>
-
-  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog">
-    <button id="lb-close" class="lb-close" aria-label="Tutup">×</button>
-    <img id="lb-img" src="" alt="Foto besar" />
-  </div>
-
-  <audio id="bg-music" src="assets/audio/lagu.mp3" loop playsinline></audio>
-  <button id="music-fallback" class="music-fallback" style="display:none;">▶️ Putar Musik</button>
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="script.js" defer></script>
+    <noscript>
+      <div class="noscript-note">JavaScript diperlukan agar undangan tampil personal. Mohon aktifkan JavaScript.</div>
+    </noscript>
+  </main>
 
   <script>
-    // PERUBAHAN: Skrip dibungkus dalam IIFE (Immediately Invoked Function Expression)
     (function(){
-      
-      // PERUBAHAN: Fungsi helper dipindah ke dalam IIFE agar tidak global
-      function escapeHtml(s){ return String(s).replace(/[&<>"']/g, (m)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
+      // Ambil elemen-elemen DOM
+      const groomEl = document.getElementById('groomName');
+      const brideEl = document.getElementById('brideName');
+      const dateEl = document.getElementById('eventDate');
+      const cardEl = document.getElementById('welcomeCard');
+      const formEl = document.getElementById('guestForm');
+      const inputEl = document.getElementById('guestName');
+      const buttonEl = document.querySelector('.btn-enter');
 
-      const W = window.__WEDDING || {};
-      const heroNames = document.getElementById('hero-names');
-      const heroDate = document.getElementById('hero-date');
-      const venueName = document.getElementById('venueName');
-      const bankName = document.getElementById('bankName');
-      const bankAccount = document.getElementById('bankAccount');
-      const bankAn = document.getElementById('bankAn');
-      const bankQr = document.getElementById('bank-qr');
-      const gmaps = document.getElementById('gmaps');
-      const openMaps = document.getElementById('open-maps');
-      const greetEl = document.getElementById('greeting-text');
+      // 1. Ambil config
+      const W = window.__WEDDING || {
+        groom: "Hendrawan Lotanto",
+        bride: "Rona Winarsih",
+        dateISO: "2026-01-11T09:00:00"
+      };
 
-      // populate hero names & date display from config
-      if (heroNames && W.groom && W.bride) {
-        heroNames.textContent = `${W.groom} & ${W.bride}`;
-      }
-      
-      // date formatting: show human readable date
-      if (heroDate && W.dateISO) {
+      // 2. Populate nama & tanggal
+      if (groomEl) groomEl.textContent = W.groom || "Hendrawan Lotanto";
+      if (brideEl) brideEl.textContent = W.bride || "Rona Winarsih";
+      if (dateEl) {
         try {
           const d = new Date(W.dateISO);
           if (!isNaN(d)) {
-            const opt = { weekday: 'long', year:'numeric', month:'long', day:'numeric' };
-            heroDate.textContent = d.toLocaleDateString('id-ID', opt);
+            const opt = { year:'numeric', month:'long', day:'numeric' };
+            dateEl.textContent = d.toLocaleDateString('id-ID', opt);
           }
-        } catch(e){ console.error('Error formatting date:', e); }
+        } catch(e){ console.error('Error parsing date:', e); }
       }
-      
-      // set venue name
-      if (venueName && W.venueName) venueName.textContent = W.venueName;
-      
-      // set bank info
-      if (W.bank) {
-        if (bankName) bankName.textContent = W.bank.name || 'Bank';
-        if (bankAccount) bankAccount.textContent = W.bank.account || '';
-        if (bankAn) bankAn.textContent = W.bank.an || '';
-        if (bankQr && W.bank.qr) bankQr.src = W.bank.qr;
-      }
-      
-      // prepare maps iframe src & open-maps href
-      const coords = W.venueCoords || '';
-      // --- GUNAKAN KODE BARU INI ---
-    if (gmaps && openMaps && coords) {
-    if (coords.startsWith('http')) {
-        // Ini adalah URL lengkap (baik itu link "Share" atau "Embed")
-        // Kita asumsikan pengguna sudah memasukkan URL embed yang benar
-        gmaps.src = coords; 
 
-        // Untuk tombol "Buka di Maps", kita butuh link non-embed.
-        // Jika pengguna memasukkan link embed, kita coba "tebak" link share-nya.
-        if (coords.includes('/embed')) {
-            try {
-                // Coba ekstrak parameter 'q' dari URL embed
-                const urlObj = new URL(coords);
-                const q = urlObj.searchParams.get('q');
-                if (q) {
-                    openMaps.href = `http://googleusercontent.com/maps?q=${encodeURIComponent(q)}`;
-                } else {
-                    openMaps.href = 'http://googleusercontent.com/maps'; // Fallback
-                }
-            } catch(e) {
-                openMaps.href = coords; // Fallback jika URL tidak valid
-            }
-        } else {
-            // Ini sudah link share, gunakan apa adanya
-            openMaps.href = coords;
+      // 3. Animasi masuk
+      if (cardEl) {
+        window.requestAnimationFrame(()=> {
+          setTimeout(()=> {
+            cardEl.classList.add('visible');
+          }, 120);
+        });
+      }
+
+      // 4. Auto-focus ke input
+      if (inputEl) {
+        setTimeout(()=> {
+          inputEl.focus();
+        }, 650);
+      }
+      
+      // 5. Definisikan fungsi submit
+      function handleFormSubmit(e){
+        e.preventDefault();
+        if (!inputEl) return;
+
+        const name = inputEl.value.trim();
+        if (!name) {
+          alert('Mohon masukkan nama Anda.');
+          inputEl.focus();
+          return;
         }
 
-  } else {
-    // Ini adalah koordinat (lat,lng), gunakan logika lama yang sudah diperbaiki
-    const encodedCoords = encodeURIComponent(coords);
-    gmaps.src = `http://googleusercontent.com/maps/google.com/3{encodedCoords}&t=m&z=16&output=embed&iwloc=near`;
-    openMaps.href = `http://googleusercontent.com/maps/google.com/3{encodedCoords}`;
-  }
-}
+        // PERBAIKAN: Implementasi fallback query parameter
+        let redirectUrl = 'index.html';
+        try {
+          localStorage.setItem('namaTamu', name);
+        } catch(err){
+          console.warn('localStorage gagal, gunakan fallback query parameter.');
+          // Buat URL dengan query parameter sebagai fallback
+          redirectUrl = `index.html?guest=${encodeURIComponent(name)}`;
+        }
 
-      // greeting name from localStorage
-      const guest = localStorage.getItem('namaTamu') || '';
-      if (guest && greetEl) {
-        // PERUBAHAN: Memanggil fungsi escapeHtml yang sudah dipindah
-        greetEl.innerHTML = `Halo <strong>${escapeHtml(guest)}</strong>, terima kasih atas kunjungan Anda.`;
+        // Animasi keluar
+        if (cardEl) {
+          cardEl.style.transition = 'transform .35s ease, opacity .35s ease';
+          cardEl.style.transform = 'scale(.98)';
+          cardEl.style.opacity = '0';
+        }
+
+        // Alihkan ke halaman utama
+        setTimeout(()=> {
+          window.location.href = redirectUrl;
+        }, 330);
       }
 
-      // init AOS (external lib)
-      if (window.AOS) {
-        AOS.init({ duration: 900, once: true, offset: 120 });
+      // 6. Pasang event listener
+      if (formEl) {
+        formEl.addEventListener('submit', handleFormSubmit);
       }
+      
+      // 7. Pasang event listener untuk 'Enter' key
+      if (inputEl && buttonEl) {
+        inputEl.addEventListener('keydown', function(e){
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            // Simulasikan klik pada tombol submit
+            buttonEl.click(); 
+          }
+        });
+      }
+
     })();
   </script>
-
 </body>
 </html>
